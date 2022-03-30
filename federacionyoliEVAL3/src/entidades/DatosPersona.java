@@ -133,5 +133,9 @@ public class DatosPersona {
 		ret = new DatosPersona(id, nombre, tfn, fecha, doc);
 		return ret;
 	}
+	public String data() {
+		return "" + persona.getId() + "|" + persona.getNombre() "|" + persona.getTelefono() + persona.getFechaNac().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"))
+		+ "|" + persona.getNifnie().mostrar() ;
+		}
 
 }
