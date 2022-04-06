@@ -12,6 +12,9 @@ import entidades.NIF;
 //Examen 5 Ejercicio 3
 public class Validaciones {
 
+	public static final boolean validarURL = false;
+	public static final boolean validardotacion = false;
+
 	/**
 	 * Valida que una cadena de caracteres contiene dígitos únicamente
 	 * 
@@ -158,7 +161,6 @@ public class Validaciones {
 	}
 
 	public static boolean validarFecha(LocalDate fechaMin) {
-		// TODO Esbozo de método generado automáticamente
 		return true;
 	}
 
@@ -173,4 +175,10 @@ public class Validaciones {
 	public static boolean validarNombreEquipo(String nombre) {
 		return false; //TO-DO
 	}
+
+	public static boolean validarweb(String web) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

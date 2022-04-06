@@ -14,6 +14,7 @@ public class Prueba {
 	private LocalDate fecha; // solo fecha
 	private boolean individual; // indica si es individual o no (por equipos)
 	private Lugar lugar;
+	//private Patrocinador patrocinador;
 
 	private Colegiado[] arbitraje = new Colegiado[3];
 	private Resultado resultado = null;
