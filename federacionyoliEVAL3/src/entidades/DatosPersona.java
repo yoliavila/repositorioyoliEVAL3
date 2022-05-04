@@ -3,6 +3,7 @@ package entidades;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -14,10 +15,15 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import comparadores.ComparadorAlfabetico;
 import utils.*;
 import validaciones.Validaciones;
 
-public class DatosPersona implements Comparable<DatosPersona> {
+public class DatosPersona implements Comparable<DatosPersona>, Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private long id;
 	private String nombre;
 	private String telefono;

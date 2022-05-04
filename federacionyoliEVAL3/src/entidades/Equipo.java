@@ -9,6 +9,7 @@ import utils.Utilidades;
 import validaciones.Validaciones;
 
 public class Equipo extends Participante {
+	private static final entidades.Tiempo Tiempo = null;
 	private long idEquipo;
 	private int anioinscripcion;
 	private Manager manager;
@@ -29,7 +30,7 @@ public class Equipo extends Participante {
 	}
 
 	public Equipo(long idParticipante, Equipo e, int dorsal, char calle) {
-		super(idParticipante, dorsal, calle);
+		super(idParticipante, dorsal, calle,  null, false, "");
 		this.idEquipo = e.idEquipo;
 		this.nombre = e.nombre;
 		this.anioinscripcion = e.anioinscripcion;

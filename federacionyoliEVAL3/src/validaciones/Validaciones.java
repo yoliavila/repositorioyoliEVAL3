@@ -1,6 +1,7 @@
 package validaciones;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -11,9 +12,6 @@ import entidades.NIF;
 
 //Examen 5 Ejercicio 3
 public class Validaciones {
-
-	public static final boolean validarURL = false;
-	public static final boolean validardotacion = false;
 
 	/**
 	 * Valida que una cadena de caracteres contiene dígitos únicamente
@@ -42,7 +40,18 @@ public class Validaciones {
 		Matcher comprobacion = patron.matcher(nombre);
 		return comprobacion.matches();//
 	}
-
+	
+	public static boolean validarOtros(String otros) {
+		// regEx general para cadena de caracteres con longitud entre 1 y 50 caracteres,
+		// aceptando dígitos, letras MAYUS y minúsculas, con tildes, diréresis y
+		// diferentes símbolos especiales
+		// Pattern patron = Pattern.compile("[
+		// 0-9A-Za-zñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ¡!¿?@#$%()=+-€/.,]{1,50}");
+		Pattern patron = Pattern.compile("[ A-Za-zñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ-]{3,50}");
+		Matcher comprobacion = patron.matcher(otros);
+		return comprobacion.matches();//
+	}
+	
 	/**
 	 * 
 	 * Funcion que valida si una cadena de caracteres que se pasa como parámetro
@@ -161,6 +170,7 @@ public class Validaciones {
 	}
 
 	public static boolean validarFecha(LocalDate fechaMin) {
+		// TODO Esbozo de método generado automáticamente
 		return true;
 	}
 
@@ -171,14 +181,91 @@ public class Validaciones {
 	public static boolean validarAnio(int anio) {
 		return (anio > 0);
 	}
-	
+
 	public static boolean validarNombreEquipo(String nombre) {
-		return false; //TO-DO
+		return false; // TO-DO
 	}
 
-	public static boolean validarweb(String web) {
-		// TODO Auto-generated method stub
-		return false;
+	/// Examen 10 ejercicio 2
+	/***
+	 * Funcion que valida el teléfono profesional de un responsable de un
+	 * patrocinador, que es una cadena de caracteres de 9 o 10 dígitos.
+	 * 
+	 * @param tfnProf la cadena con el telefono profesional a validar
+	 * @return true si la cadena que se pasa como parametro es válida o false en
+	 *         caso contrario
+	 */
+	public static boolean validarTelefonoProf(String tfnProf) {
+		boolean ret = false;
+		ret = tfnProf.trim().chars().allMatch(Character::isDigit) && (tfnProf.length() == 9 || tfnProf.length() == 10);
+		return ret;
 	}
 
+	/***
+	 * Funcion que valida la franja horaria de un responsable de un patrocinador
+	 * 
+	 * @param horaini hora de inicio de la franja horaria a validar
+	 * @param horafin hora de fin de la franja horaria a validar
+	 * @return true si la franja horaria se pasa como parametro es válida o false en
+	 *         caso contrario
+	 */
+	public static boolean validarRangoHorario(LocalTime horaini, LocalTime horafin) {
+		return horaini.isBefore(horafin);
+	}
+
+	/***
+	 * Funcion que valida un nombre para un patrocinador: ha de ser único (que no se
+	 * puede repetir), y conformado por una cadena de caracteres de entre 3 y 150
+	 * caracteres, siendo válidos los alfabéticos (letras) o numéricos (dígitos)
+	 * solamente
+	 * 
+	 * @param nombre con el nombre del patrocinador a validar
+	 * @return true si el nombre que se pasa como parametro es válido para un
+	 *         patrocinador o false en caso contrario
+	 */
+	public static boolean validarNombrePatrocinador(String nombre) {
+		Pattern patron = Pattern.compile("[ A-Za-zñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ0123456789-]{3,150}");
+		Matcher comprobacion = patron.matcher(nombre);
+		return comprobacion.matches();
+	}
+
+	/***
+	 * Funcion que valida la dotacion aportada por un patrocinador: ha de ser mayor
+	 * de 100 euros y con 2 decimales como mucho (céntimos)
+	 * 
+	 * @param dotacion valor double con la dotacion a validar
+	 * @return true si la dotacion que se pasa como parametro es válido para un
+	 *         patrocinador o false en caso contrario
+	 */
+	public static boolean validarDotacion(double dotacion) {
+		boolean aux = (dotacion * 1000) % 10 > 0;
+		if (aux)
+			return false;
+		return (dotacion >= 100.00);
+	}
+
+	public static boolean validarWebPatrocinador(String web) {
+		if (web.length() < 3 || web.length() > 150)
+			return false;
+		else
+			return true;
+	}
+	public static boolean validarHora(int hora) {
+		return (hora >= 0);
+	}
+	public static boolean validarMinutos(int minutos) {
+		return (minutos >= 0);
+	}
+	public static boolean validarSegundos(int segundos) {
+		return (segundos >= 0);
+	}
+public static boolean validarCentesimas(int centesimas) {
+		return (centesimas >= 0);
+	}
+public static boolean validarCalle(char calle) {
+	return Character.isLetter(calle);
+}
+public static boolean validarDorsal(int dorsal) {
+	return (dorsal > 001 && dorsal>150);
+}
 }
