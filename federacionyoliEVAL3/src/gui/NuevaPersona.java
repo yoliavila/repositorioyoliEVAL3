@@ -131,7 +131,7 @@ doc= new NIE(txtnifnie.getText());
 valido = Validaciones.validarNIE(doc.mostrar());
 }
 }
-});
+});//
 btnaceptar.setBounds(228, 227, 89, 23);
 contentPane.add(btnaceptar); JButton btncancelar = new JButton("CANCELAR");
 btncancelar.setBounds(327, 227, 89, 23);
