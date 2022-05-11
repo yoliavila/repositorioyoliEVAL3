@@ -2,6 +2,7 @@ package validaciones;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -9,6 +10,7 @@ import com.aeat.valida.Validador;
 
 import entidades.NIE;
 import entidades.NIF;
+import entidades.Tiempo;
 
 //Examen 5 Ejercicio 3
 public class Validaciones {
@@ -40,18 +42,7 @@ public class Validaciones {
 		Matcher comprobacion = patron.matcher(nombre);
 		return comprobacion.matches();//
 	}
-	
-	public static boolean validarOtros(String otros) {
-		// regEx general para cadena de caracteres con longitud entre 1 y 50 caracteres,
-		// aceptando dígitos, letras MAYUS y minúsculas, con tildes, diréresis y
-		// diferentes símbolos especiales
-		// Pattern patron = Pattern.compile("[
-		// 0-9A-Za-zñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ¡!¿?@#$%()=+-€/.,]{1,50}");
-		Pattern patron = Pattern.compile("[ A-Za-zñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ-]{3,50}");
-		Matcher comprobacion = patron.matcher(otros);
-		return comprobacion.matches();//
-	}
-	
+
 	/**
 	 * 
 	 * Funcion que valida si una cadena de caracteres que se pasa como parámetro
@@ -183,7 +174,7 @@ public class Validaciones {
 	}
 
 	public static boolean validarNombreEquipo(String nombre) {
-		return false; // TO-DO
+		return true; // TODO
 	}
 
 	/// Examen 10 ejercicio 2
@@ -250,22 +241,81 @@ public class Validaciones {
 		else
 			return true;
 	}
-	public static boolean validarHora(int hora) {
-		return (hora >= 0);
+
+	public static boolean validarHoras(int h) {
+		return (h >= 0);
 	}
-	public static boolean validarMinutos(int minutos) {
-		return (minutos >= 0);
+
+	public static boolean validarMinutos(int m) {
+		return (m >= 0 && m <= 59);
 	}
-	public static boolean validarSegundos(int segundos) {
-		return (segundos >= 0);
+
+	public static boolean validarSegundos(int s) {
+		return (s >= 0 && s <= 59);
 	}
-public static boolean validarCentesimas(int centesimas) {
-		return (centesimas >= 0);
+
+	public static boolean validarCentesimas(int c) {
+		return (c >= 0 && c <= 99);
 	}
-public static boolean validarCalle(char calle) {
-	return Character.isLetter(calle);
-}
-public static boolean validarDorsal(int dorsal) {
-	return (dorsal > 001 && dorsal>150);
-}
+
+	/***
+	 * funcion que valida si un Tiempo es mayor que 00h 00m 00,00s
+	 * 
+	 * @param t
+	 * @return
+	 */
+	public static boolean validarTiempo(Tiempo t) {
+		boolean ret = false;
+		if (!validarHoras(t.getHoras()))
+			return false;
+		if (!validarMinutos(t.getMinutos()))
+			return false;
+		if (!validarSegundos(t.getSegundos()))
+			return false;
+		if (!validarCentesimas(t.getCentesimas()))
+			return false;
+
+		if (t.getHoras() == 0)
+			if (t.getMinutos() == 0)
+				if (t.getSegundos() == 0)
+					if (t.getCentesimas() == 0)
+						ret = false;
+
+		return true;
+	}
+
+	public static boolean validarMotivoPenalizacion(String otros) {
+		return (!otros.equals("") && otros.length() <= 500);
+	}
+
+	public static boolean validarDorsal(int dorsal) {
+		return (dorsal >= 1 && dorsal <= 150);
+	}
+
+	public static boolean validarCalle(char calle) {
+		try {
+			return Character.isLetter(calle);
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	public static boolean validarNombrePrueba(String nombre) {
+		Pattern patron = Pattern.compile("[ A-Za-zñÑáéíóúÁÉÍÓÚäëïöüÄËÏÖÜ0123456789-]{5,150}");
+		Matcher comprobacion = patron.matcher(nombre);
+		return comprobacion.matches();
+	}
+
+	/***
+	 * Valida que la fecha que se pasa como argumento sea posterior al dia actual + 1 mes
+	 * @param fecha
+	 * @return true si la fecha es posterior a hoy +1 mes o false en caso contrario
+	 */
+	public static boolean validarFechaNuevaPrueba(Date fecha) {
+		LocalDate hoyMas1MesLD = LocalDate.now().plusMonths(1);
+		java.util.Date hoyMas1Mes = new Date(hoyMas1MesLD.getYear() - 1900, hoyMas1MesLD.getMonthValue() - 1, hoyMas1MesLD.getDayOfMonth());
+		return fecha.after(hoyMas1Mes);
+		
+	}
+
 }
