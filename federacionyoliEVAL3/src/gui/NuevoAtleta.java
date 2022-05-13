@@ -164,8 +164,7 @@ public class NuevoAtleta {
 	ret.setPeso(peso);
 	DatosPersona dp = Datos.buscarPersonaPorId(idPersona);
 	ret.setPersona(dp);
-	/// TO-DO: HabrÃ¡ que arreglar esta parte cuando se incluya la informaciÃ³n del
-	/// equipo
+
 	}
 	if (conex != null)
 	conex.close();
