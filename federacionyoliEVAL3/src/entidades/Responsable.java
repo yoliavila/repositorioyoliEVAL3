@@ -1,6 +1,7 @@
 package entidades;
 
 import java.io.BufferedReader;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -12,7 +13,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 import java.util.TreeSet;
 
-import dao.operacionesCRUD;
+import DAO.operacionesCRUD;
 import utils.*;
 import validaciones.Validaciones;
 
@@ -201,13 +202,14 @@ public class Responsable implements Serializable, Comparable<Responsable> {
 				String horainiStr = campos[3];
 				String[] horaAux = horainiStr.split("\\:");
 				java.time.LocalTime horaini = LocalTime.of(Integer.valueOf(horaAux[0]), Integer.valueOf(horaAux[1]));
-				
-				
+
 				String horafinStr = campos[4];
 				horaAux = horafinStr.split("\\:");
 				java.time.LocalTime horafin = LocalTime.of(Integer.valueOf(horaAux[0]), Integer.valueOf(horaAux[1]));
+
 				
 				
+
 				DatosPersona dp = Datos.buscarPersonaPorId(idPersona);
 				Responsable r = new Responsable(idResp, tfnProf, horaini, horafin, dp);
 				responsables.add(r); /// Se autoordena en cada inserción
@@ -237,6 +239,7 @@ public class Responsable implements Serializable, Comparable<Responsable> {
 	public int compareTo(Responsable o) {
 		return Long.compare(this.id, o.id);
 	}
+
 
 
 }

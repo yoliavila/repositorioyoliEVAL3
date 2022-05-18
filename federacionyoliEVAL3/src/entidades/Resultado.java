@@ -1,6 +1,12 @@
 package entidades;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 public class Resultado {
 	private long id;
@@ -113,5 +119,49 @@ public class Resultado {
 		this.setDefinitivo(true);
 		this.setFechahora(fechahora);
 	}
+	private static void exportar(Resultado[] informe) {
+		String path = "informe.txt";
+		File fichero = new File(path);
+		FileWriter escritor = null;
+		PrintWriter buffer = null;
+		try {
+			try {
+				escritor = new FileWriter(fichero, false);
+				buffer = new PrintWriter(escritor);
+				for (Resultado m : informe) {
+					buffer.println(m.data());
+				}
+			} finally {
+				if (buffer != null) {
+					buffer.close();
+				}
+				if (escritor != null) {
+					escritor.close();
+				}
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("Se ha producido una FileNotFoundException" + e.getMessage());
+		} catch (IOException e) {
+			System.out.println("Se ha producido una IOException" + e.getMessage());
+		} catch (Exception e) {
+			System.out.println("Se ha producido una Exception" + e.getMessage());
+		}
+	}
 
+	@Override
+	public String toString() {
+		return "Resultado de la prueba [id=" + id + ", oro=" + oro + ", plata=" + plata + ", bronce=" + bronce + ", definitivo="
+				+ definitivo + ", fechahora=" + fechahora + ", podio=" + Arrays.toString(podio) + "]";
+	}
+//	Resultado de la prueba <idPrueba> “<nombrePrueba>” celebrada el pasado
+//	<fecha(dd/MM/aaaa)> en <lugar>.
+//	Primer puesto para <nombreAtleta_1> (<NIFNIEAtleta_1>), con un tiempo de
+//	<tiempo1(hh:mm:ss,cc)>. Se le otorga el oro <idOro> de pureza <purezaOro>%.
+//	Segundo puesto para <nombreAtleta_2> (<NIFNIEAtleta_2>), con un tiempo de
+//	<tiempo2(hh:mm:ss,cc)>. Se le otorga la plata <idPlata> de pureza
+//	<purezaPlata>%.
+//	Tercer puesto para <nombreAtleta_3> (<NIFNIEAtleta_3>), con un tiempo de
+//	<tiempo3(hh:mm:ss,cc)>. Se le otorga el bronce <idBronce> de pureza
+//	<purezaBronce>%.
+//	Resultado <idResultado> cerrado a las <hh:mm:ss> del día <dd/MM/yyyy>.
 }

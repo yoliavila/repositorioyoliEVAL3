@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-import dao.PatrocinadorDAO;
+import DAO.PatrocinadorDAO;
 import DAO.PatrocinadorDAO;
 import utils.ConexBD;
 import utils.Utilidades;
@@ -250,7 +250,7 @@ public class Prueba implements Comparable<Prueba> {
 		ret += "" + id + "." + nombre + " (" + fecha.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) + " en "
 				+ lugar.getNombre() + ") de tipo " + (this.isIndividual() ? "individual" : "colectiva") +
 				// Examen 10 Ejercicio 3, parte A
-				"patrocinada por: " + this.patrocinador.getNombre() + "\n";
+				" patrocinada por: " + this.patrocinador.getNombre() + "\n";
 		if (this.hayEquipoArbitral()) {
 			ret += this.nombresEquipoArbitral();
 		}
@@ -322,16 +322,17 @@ public class Prueba implements Comparable<Prueba> {
 		boolean nuevoPatrocinador = Utilidades.leerBoolean();
 		Patrocinador patrocinador;
 		PatrocinadorDAO pDAO = new PatrocinadorDAO(ConexBD.establecerConexion());
-		if (nuevoPatrocinador)
+		if (nuevoPatrocinador) 
 			patrocinador = Patrocinador.nuevoPatrocinador();
 		else 
-			patrocinador = pDAO.seleccionarUnoYaExistente(); /// Examen 10 Ejercicio 12
+			patrocinador = pDAO.seleccionarUnoYaExistente();
+		/// Examen 10 Ejercicio 12
 		
-		else {
+		else 
 			PatrocinadorDAO patDAO = new PatrocinadorDAO(ConexBD.getCon());
 			patrocinador = patDAO.seleccionarUnoYaExistente(); /// Examen 10 Ejercicio 12
 			ConexBD.cerrarConexion();
-		}
+		
 		ret = new Prueba(id, nombre, fecha, lugar, ind, patrocinador);
 		return ret;
 	}

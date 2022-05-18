@@ -5,8 +5,8 @@ import java.io.Serializable;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
-import dao.PatrocinadorDAO;
-import dao.operacionesCRUD;
+import DAO.PatrocinadorDAO;
+import DAO.operacionesCRUD;
 import utils.*;
 import validaciones.Validaciones;
 
@@ -213,4 +213,4 @@ public class Patrocinador implements Comparable<Patrocinador>, Serializable {
 		return ret;
 	}
 
-	}
+}

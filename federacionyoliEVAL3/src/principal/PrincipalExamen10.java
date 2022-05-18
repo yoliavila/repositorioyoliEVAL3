@@ -1,6 +1,7 @@
 package principal;
 
 import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,7 +12,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.LinkedList;
 
-import dao.*;
+import DAO.*;
+import DAO.PatrocinadorDAO;
 import entidades.*;
 import utils.*;
 
@@ -76,7 +78,13 @@ public class PrincipalExamen10 {
 		if(!pDAO.insertarConID(p2)) System.out.println("Error al insertar el patrocinador: "+p2);
 		if(!pDAO.insertarConID(p3)) System.out.println("Error al insertar el patrocinador: "+p3);
 		if(!pDAO.insertarConID(p4)) System.out.println("Error al insertar el patrocinador: "+p4);
+		PatrocinadorDAO aux = new PatrocinadorDAO(ConexBD.getCon());
+		if(!aux.insertarConID(p1)) System.out.println("Error al insertar el patrocinador: "+p1);
+		if(!aux.insertarConID(p2)) System.out.println("Error al insertar el patrocinador: "+p2);
+		if(!aux.insertarConID(p3)) System.out.println("Error al insertar el patrocinador: "+p3);
+		if(!aux.insertarConID(p4)) System.out.println("Error al insertar el patrocinador: "+p4);
 		System.out.println("Se han insertado correctamente los datos de los patrocinadores en la BD.\n");
+		ConexBD.cerrarConexion();
 		System.out.println("-----------------\n");
 		
 		System.out.println("Se van a importar responsables desde el fichero de caracteres responsables.txt");
